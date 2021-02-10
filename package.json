@@ -1,0 +1,44 @@
+{
+  "name": "iqdb-client",
+  "version": "1.0.0",
+  "description": " iqdb.org api client for Node.js.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest ./test/parser.test.ts",
+    "copy": "cp package.json dist/package.json & cp LICENSE dist/LICENSE & cp README.md dist/README.md & cp README.cn.md dist/README.cn.md ",
+    "build": "npm run copy & tsc",
+    "realtest": "jest ./test/api.test.ts",
+    "publish": "cd dist & npm publish"
+  },
+  "keywords": [
+    "iqdb",
+    "client",
+    "api",
+    "image",
+    "source"
+  ],
+  "author": {
+    "name": "KotoriK"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KotoriK/iqdb-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KotoriK/iqdb-client/issues"
+  },
+  "homepage": "https://github.com/KotoriK/iqdb-client#readme",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "tslib": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.8",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.1.4"
+  }
+}
