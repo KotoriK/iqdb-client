@@ -1,14 +1,13 @@
 {
   "name": "iqdb-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": " iqdb.org api client for Node.js.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest ./test/parser.test.ts",
     "copy": "cp package.json dist/package.json & cp LICENSE dist/LICENSE & cp README.md dist/README.md & cp README.cn.md dist/README.cn.md ",
     "build": "npm run copy & tsc",
-    "realtest": "jest ./test/api.test.ts",
-    "publish": "cd dist & npm publish"
+    "realtest": "jest ./test/api.test.ts"
   },
   "keywords": [
     "iqdb",
