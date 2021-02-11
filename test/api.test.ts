@@ -1,4 +1,4 @@
-import searchPic from "../src";
+import searchPic from "../src/api";
 import fs from 'fs/promises'
 import { resolve } from 'path'
 test('find by url', async () => {

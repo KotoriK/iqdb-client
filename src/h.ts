@@ -1,5 +1,3 @@
-import FormData from "form-data";
-
 export interface IQDBClientOptions {
     baseDomain: string,
     simlarityPass: number
@@ -30,12 +28,6 @@ export type IQDB_SEARCH_OPTIONS_3D = ({
 }) & IQDB_SEARCH_OPTIONS_GENERAL
 export type IQDB_SEARCH_OPTIONS_ALL = IQDB_SEARCH_OPTIONS_2D | IQDB_SEARCH_OPTIONS_3D
 
-export let IQDB_OPTIONS: IQDBClientOptions = {
-    baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
-    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
-}
-
 export enum IQDBLibs_2D {
     danbooru = 1,
     konachan = 2,
@@ -50,4 +42,3 @@ export enum IQDBLibs_3D {
     '3dbooru' = 7,
     'idol' = 9
 }
-export const addToForm = (form: FormData, array: Array<IQDBLibs_2D | IQDBLibs_3D>) => array.forEach(lib => { form.append('service[]', lib) })

@@ -1,4 +1,4 @@
-import { _parseResult } from '../src/index'
+import { _parseResult } from '../src/api'
 import fs from 'fs/promises'
 import { resolve } from 'path'
 test('parser', async() => {
