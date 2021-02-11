@@ -1,5 +1,7 @@
 # iqdb-client
- iqdb.org api client for Node.js.
+![](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)
+iqdb.org api client for Node.js.(https://www.jsdelivr.com/package/npm/iqdb-client)
+
  English | [中文文档](./README.cn.md)
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -7,7 +9,8 @@
 - [Feature](#feature)
 - [Install](#install)
 - [Usage](#usage)
-    - [Example result:](#example-result)
+    - [Advanced Usage](#advanced-usage)
+    - [Example Result](#example-result)
 - [API](#api)
     - [params](#params)
 - [Support this package](#support-this-package)
@@ -38,7 +41,22 @@ if(result.ok){
 }
 
 ```
-#### Example result:
+#### Advanced Usage
+```ts
+export interface IQDBClientOptions {
+    baseDomain: string,
+    simlarityPass: number
+    userAgent:string
+}
+export let IQDB_OPTIONS: IQDBClientOptions = {
+    baseDomain: 'iqdb.org',
+    simlarityPass: 0.6,
+    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
+}
+```
+These options are saved in ```IQDB_OPTIONS```. Simply modify it to change the options.
+
+#### Example Result
 ```json
 {
     "ok": true,

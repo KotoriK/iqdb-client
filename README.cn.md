@@ -1,4 +1,5 @@
 # iqdb-client
+ ![](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)
  iqdb.org api client for Node.js.
  [English](./README.md) | 中文文档
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -7,7 +8,8 @@
 - [亮点](#%E4%BA%AE%E7%82%B9)
 - [安装](#%E5%AE%89%E8%A3%85)
 - [用法](#%E7%94%A8%E6%B3%95)
-    - [返回结果示例:](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)
+    - [进阶用法](#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95)
+    - [返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)
 - [API](#api)
     - [参数](#%E5%8F%82%E6%95%B0)
 - [支持](#%E6%94%AF%E6%8C%81)
@@ -38,7 +40,22 @@ if(result.ok){
 }
 
 ```
-#### 返回结果示例:
+#### 进阶用法
+```ts
+export interface IQDBClientOptions {
+    baseDomain: string,
+    simlarityPass: number
+    userAgent:string
+}
+export let IQDB_OPTIONS: IQDBClientOptions = {
+    baseDomain: 'iqdb.org',
+    simlarityPass: 0.6,
+    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
+}
+```
+这些选项存储在```IQDB_OPTIONS```中，直接修改这个对象来修改选项。
+
+#### 返回结果示例
 ```json
 {
     "ok": true,
