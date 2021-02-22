@@ -1,4 +1,4 @@
-import searchPic,{IQDBSearchResultItem,Size,IQDB_OPTIONS} from "./api"
-
-export {searchPic,IQDBSearchResultItem,Size,IQDB_OPTIONS} 
+import searchPic from './api'
+export { IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions } from './api'
+export { searchPic }
 export * from './h'
