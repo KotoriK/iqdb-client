@@ -1,7 +1,8 @@
 export interface IQDBClientOptions {
     baseDomain: string,
     simlarityPass: number
-    userAgent:string
+    userAgent: string,
+    fetchOptions?:import('node-fetch').RequestInit
 }
 /**'www'search all libs */
 export type IQDB_SEARCH_LIBRARY_2D = 'danbooru' | 'konachan' | 'yandere' | 'gelbooru' | 'sankaku' | 'e-shuushuu' | 'zerochan' | 'anime-pictures' | 'www'
@@ -9,11 +10,11 @@ export type IQDB_SEARCH_LIBRARY_2D = 'danbooru' | 'konachan' | 'yandere' | 'gelb
 export type IQDB_SEARCH_LIBRARY_3D = '3d' | '3dbooru' | 'idol'
 export interface IQDB_SEARCH_OPTIONS_GENERAL {
     forcegray?: boolean
-    fileName?:string
+    fileName?: string
 }
 export type IQDB_SEARCH_OPTIONS_2D = ({
     lib: Exclude<IQDB_SEARCH_LIBRARY_2D, 'www'>,
-    libs?:undefined
+    libs?: undefined
 
 } | {
     lib: 'www',
@@ -21,7 +22,7 @@ export type IQDB_SEARCH_OPTIONS_2D = ({
 }) & IQDB_SEARCH_OPTIONS_GENERAL
 export type IQDB_SEARCH_OPTIONS_3D = ({
     lib: Exclude<IQDB_SEARCH_LIBRARY_3D, '3d'>,
-    libs?:undefined
+    libs?: undefined
 } | {
     lib: '3d',
     libs?: Array<IQDBLibs_3D>
@@ -42,3 +43,4 @@ export enum IQDBLibs_3D {
     '3dbooru' = 7,
     'idol' = 9
 }
+export type IQDB_RESULT_TYPE = 'Safe'|'Ero'|'Explicit'|string
