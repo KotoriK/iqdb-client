@@ -13,6 +13,7 @@ iqdb.org api client for Node.js.(https://www.jsdelivr.com/package/npm/iqdb-clien
     - [Example Result](#example-result)
 - [API](#api)
     - [params](#params)
+    - [Returns](#returns)
 - [Support this package](#support-this-package)
 - [License](#license)
 
@@ -47,14 +48,18 @@ export interface IQDBClientOptions {
     baseDomain: string,
     simlarityPass: number
     userAgent:string
+    /*options pass directly to node-fetch*/
+    fetchOptions?:import('node-fetch').RequestInit
 }
+//default options
 export let IQDB_OPTIONS: IQDBClientOptions = {
     baseDomain: 'iqdb.org',
     simlarityPass: 0.6,
-    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
+    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
 These options are saved in ```IQDB_OPTIONS```. Simply modify it to change the options.
+In case of changing all the options at one time, use ```setIQDBOptions()```
 
 #### Example Result
 ```json
@@ -78,7 +83,7 @@ These options are saved in ```IQDB_OPTIONS```. Simply modify it to change the op
                 "width": 1703,
                 "height": 2459
             },
-            "type": "Safe",//safe for work
+            "type": "Safe",/*safe for work*/
             "source": [
                 "Danbooru",
                 "Gelbooru"
@@ -114,6 +119,17 @@ whether ignore color.
 Determines field 'filename' in form data. Only make sense when searching by files. When not provide, a random-summon string will hold the place.
 * **libs**: *Array&lt;number&gt;* 
 When performing search on multi-libs, determine which lib to search on. Only make sense when ```lib``` is 'www' or '3d'. Check type ```IQDBLibs_2D``` and type ```IQDBLibs_2D``` in [h.ts](./src/h.ts) for details.
+#### Returns
+While successfully, function will return an object with ```{ok:true}```. See [Example Result](#example-result)
+While meet exceptions, function will return it in an object as text. For example:
+```ts
+{
+    ok:false,
+    /*error info*/
+    err:'HTTP 400'
+}
+```
+Exception handle in this package is not mature yet due to lack of real test.
 ## Support this package
 
 * This package makes sense because of [iqdb.org](https://www.iqdb.org/). Support them is supporting the package.

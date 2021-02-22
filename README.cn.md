@@ -12,6 +12,7 @@
     - [返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)
 - [API](#api)
     - [参数](#%E5%8F%82%E6%95%B0)
+    - [返回值](#%E8%BF%94%E5%9B%9E%E5%80%BC)
 - [支持](#%E6%94%AF%E6%8C%81)
 - [许可协议](#%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE)
 
@@ -46,14 +47,17 @@ export interface IQDBClientOptions {
     baseDomain: string,
     simlarityPass: number
     userAgent:string
+    /*直接传递给node-fetch的选项*/
+    fetchOptions?:import('node-fetch').RequestInit
 }
+//选项默认值
 export let IQDB_OPTIONS: IQDBClientOptions = {
     baseDomain: 'iqdb.org',
     simlarityPass: 0.6,
-    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
+    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
-这些选项存储在```IQDB_OPTIONS```中，直接修改这个对象来修改选项。
+这些选项存储在```IQDB_OPTIONS```中，直接修改这个对象来修改选项。如果你想一次修改所有选项，使用```setIQDBOptions()```
 
 #### 返回结果示例
 ```json
@@ -77,7 +81,7 @@ export let IQDB_OPTIONS: IQDBClientOptions = {
                 "width": 1703,
                 "height": 2459
             },
-            "type": "Safe",//表示不是色图
+            "type": "Safe",/*表示不是色图*/
             "source": [
                 "Danbooru",
                 "Gelbooru"
@@ -114,6 +118,17 @@ searchPic(pic: string | Buffer | Readable,
 表示表单中的‘filename’应为何值。仅在根据文件查找时有效。若没有提供，会自动生成一个随机文件名代替。
 * **libs**: *Array&lt;number&gt;* 
 在执行多库搜索时，决定应该在搜索哪些库。仅当执行多库搜索时有效（```lib```为'www'或'3d）。更多细节可以查看在[h.ts](./src/h.ts)中定义的 ```IQDBLibs_2D``` 和 ```IQDBLibs_2D```类型。
+#### 返回值
+当成功完成请求, 函数会返回一个包含```{ok:true}```的对象， 如[返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)所展示的那样。
+若在执行中碰到错误, 函数会返回如下一个对象:
+```ts
+{
+    ok:false,
+    /*错误信息*/
+    err:'HTTP 400'
+}
+```
+由于缺乏实例，错误处理还不是特别完善。欢迎就你碰到的问题提出issue。
 ## 支持
 
 * 支持[iqdb.org](https://www.iqdb.org/)
