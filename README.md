@@ -1,5 +1,8 @@
 # iqdb-client
-![](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)
+![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)
+![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)
+![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client)
+
 iqdb.org api client for Node.js.(https://www.jsdelivr.com/package/npm/iqdb-client)
 
  English | [中文文档](./README.cn.md)
