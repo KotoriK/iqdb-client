@@ -1,7 +1,7 @@
 {
   "name": "iqdb-client",
   "version": "1.0.3",
-  "description": " iqdb.org api client for Node.js.",
+  "description": "iqdb.org api client for Node.js.",
   "main": "index.js",
   "scripts": {
     "test": "jest ./test/parser.test.ts ./test/util.test.ts",
