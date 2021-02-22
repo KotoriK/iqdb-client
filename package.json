@@ -4,7 +4,7 @@
   "description": " iqdb.org api client for Node.js.",
   "main": "index.js",
   "scripts": {
-    "test": "jest ./test/parser.test.ts",
+    "test": "jest ./test/parser.test.ts ./test/util.test.ts",
     "copy": "cp package.json dist/package.json & cp LICENSE dist/LICENSE & cp README.md dist/README.md & cp README.cn.md dist/README.cn.md & cp CHANGELOG.md dist/CHANGELOG.md",
     "build": "npm run copy & tsc",
     "realtest": "jest ./test/api.test.ts",
