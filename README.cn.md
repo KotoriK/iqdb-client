@@ -1,6 +1,8 @@
 # iqdb-client
-![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge) ![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client)
- iqdb.org api client for Node.js.
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)
+
+iqdb.org api client for Node.js.
+
  [English](./README.md) | 中文文档
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
