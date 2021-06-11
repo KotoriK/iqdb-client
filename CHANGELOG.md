@@ -1,3 +1,7 @@
+## [1.0.4](https://github.com/KotoriK/iqdb-client/compare/1.0.3...1.0.4) (2021-06-11)
+
+代码重构与依赖更新
+
 ## [1.0.3](https://github.com/KotoriK/iqdb-client/compare/1.0.2...1.0.3) (2021-02-22)
 
 
