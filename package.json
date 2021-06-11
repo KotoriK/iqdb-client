@@ -31,20 +31,20 @@
   "homepage": "https://github.com/KotoriK/iqdb-client#readme",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.5",
-    "form-data": "^3.0.0",
+    "cheerio": "^1.0.0-rc.10",
+    "form-data": "^4.0.0",
     "node-fetch": "^2.6.1",
-    "tslib": "^2.1.0"
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@types/node-fetch": "^2.5.8",
-    "@types/jest":"^26.0.23",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@types/jest": "^26.0.23",
+    "@types/node-fetch": "^2.5.10",
     "cz-conventional-changelog": "^3.3.0",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.1",
-    "typescript": "^4.1.4"
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.2"
   },
   "config": {
     "commitizen": {
