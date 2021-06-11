@@ -1,4 +1,4 @@
-export function parseNum(txt: string) {
+export function parseFloat(txt: string) {
     const result = txt.match(/(-?\d+\.?\d*)(%?)/)
     if (result) {
         return (result[2] == undefined || result[2] == '') ? parseFloat(result[1]) : parseFloat(result[1]) / 100

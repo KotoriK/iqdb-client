@@ -1,4 +1,4 @@
-import { parseNum, parseSizeAndType, randomFileName } from "./util"
+import { parseFloat, parseSizeAndType, randomFileName } from "./util"
 import { load } from 'cheerio'
 import fetch from 'node-fetch'
 import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientOptions, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
@@ -64,10 +64,10 @@ export function _parseResult(body: string, noSource?: boolean) {
             } else {
                 let similarity: number | string, sizeAndType: string | { size: { width: number; height: number }; type: string }, source: string[]
                 if (noSource) {
-                    similarity = parseNum($(rows[3]).text())
+                    similarity = parseFloat($(rows[3]).text())
                     sizeAndType = parseSizeAndType($(rows[2]).text())
                 } else {
-                    similarity = parseNum($(rows[4]).text())
+                    similarity = parseFloat($(rows[4]).text())
                     sizeAndType = parseSizeAndType($(rows[3]).text())
                     source = $(rows[2]).text().split(' ')
                 }
