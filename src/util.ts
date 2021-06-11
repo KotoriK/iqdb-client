@@ -23,9 +23,9 @@ const baseArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "
 export function randomFileName() {
     const length = 5 + (Math.random() * 10 | 0)
     const baseArrayLength = baseArray.length
-    const array = new Array(length)
+    let str = ''
     for (let i = 0; i < length; i++) {
-        array[i] = baseArray[Math.random() * baseArrayLength | 0]
+        str += baseArray[Math.random() * baseArrayLength | 0]
     }
-    return array.join('') + '.jpg'
+    return str + '.jpg'
 }
