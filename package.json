@@ -1,6 +1,6 @@
 {
   "name": "iqdb-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "iqdb.org api client for Node.js.",
   "main": "index.js",
   "scripts": {
