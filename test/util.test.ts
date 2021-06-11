@@ -1,10 +1,10 @@
-import { parseNum, parseSizeAndType } from "../src/util"
+import { parseSimilarity, parseSizeAndType } from "../src/util"
 
-test('parseNum', () => {
-    expect(parseNum('92% similarity')).toBe(0.92)
-    expect(parseNum('0.92')).toBe(0.92)
-    expect(parseNum('-0.92')).toBe(-0.92)
-    expect(parseNum('92s3')).toBe(92)
+test('parseFloat', () => {
+    expect(parseSimilarity('92% similarity')).toBe(0.92)
+    expect(parseSimilarity('0.92')).toBe(0.92)
+    expect(parseSimilarity('-0.92')).toBe(-0.92)
+    expect(parseSimilarity('92s3')).toBe(92)
 })
 
 test('parseSize', () => {
