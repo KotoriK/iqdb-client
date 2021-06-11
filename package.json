@@ -40,6 +40,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@types/node-fetch": "^2.5.8",
+    "@types/jest":"^26.0.23",
     "cz-conventional-changelog": "^3.3.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.1",
