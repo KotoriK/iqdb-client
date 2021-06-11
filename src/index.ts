@@ -5,7 +5,6 @@
  * @author KotoriK
  * @license MIT
  */
-import searchPic from './api'
-export { IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions } from './api'
-export { searchPic }
 export * from './h'
+import searchPic, { IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions } from './api'
+export { searchPic, IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions }
