@@ -19,6 +19,19 @@ export type IQDBSearchResultItem = {
     size?: Size,
     type?: IQDB_RESULT_TYPE
 } | { sizeAndType: string })
+export type SearchPicResult = SearchPicResultWithError |
+{
+    /**是否找到满足相似度的结果 */
+    ok: boolean,
+    /**返回数据 */
+    data: IQDBSearchResultItem[]
+}
+export interface SearchPicResultWithError {
+    /**是否找到满足相似度的结果 */
+    ok: false,
+    /**是否发生错误 */
+    err: string
+}
 export function setIQDBOptions(newOption: IQDBClientOptions) {
     IQDB_OPTIONS = newOption
 }
@@ -41,11 +54,9 @@ export function _parseResult(body: string, noSource?: boolean) {
     const err = $('.err')
     if (err.length > 0) {
         return {
-            /**是否找到满足相似度的结果 */
-            ok,
-            /**是否发生错误 */
+            ok: false,
             err: err.text()
-        }
+        } as SearchPicResultWithError
     }
     const data: Array<IQDBSearchResultItem> = $('#pages').children('div').toArray()
         .map(page => {
@@ -85,13 +96,11 @@ export function _parseResult(body: string, noSource?: boolean) {
         })
         .filter(item => item != undefined)
     return {
-        /**是否找到满足相似度的结果 */
         ok,
-        /**返回数据 */
         data
     }
 }
-export default async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, libs, fileName }: IQDB_SEARCH_OPTIONS_ALL) {
+export default async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
     const isMultiLib = lib == 'www' || lib == '3d'
     const form = new FormData()
     if (typeof pic == 'string') { form.append('url', pic) }
@@ -117,6 +126,6 @@ export default async function searchPic(pic: string | Buffer | Readable, { lib, 
         return {
             ok: false,
             err: 'HTTP ' + resp.status
-        }
+        } as SearchPicResultWithError
     }
 }
