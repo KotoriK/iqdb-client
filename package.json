@@ -39,7 +39,7 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
+    "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^12.1.4",
     "@types/jest": "^27.0.1",
     "@types/node-fetch": "^2.5.10",
