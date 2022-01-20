@@ -1,8 +1,8 @@
-export interface IQDBClientOptions {
+export interface IQDBClientConfig {
     baseDomain: string,
     simlarityPass: number
     userAgent: string,
-    fetchOptions?:import('node-fetch').RequestInit
+    fetchOptions?: import('node-fetch').RequestInit
 }
 /**'www'search all libs */
 export type IQDB_SEARCH_LIBRARY_2D = 'danbooru' | 'konachan' | 'yandere' | 'gelbooru' | 'sankaku' | 'e-shuushuu' | 'zerochan' | 'anime-pictures' | 'www'
@@ -43,4 +43,4 @@ export enum IQDBLibs_3D {
     '3dbooru' = 7,
     'idol' = 9
 }
-export type IQDB_RESULT_TYPE = 'Safe'|'Ero'|'Explicit'|string
+export type IQDB_RESULT_TYPE = 'Safe' | 'Ero' | 'Explicit' | string

@@ -1,7 +1,7 @@
 import { parseSimilarity, parseSizeAndType, randomFileName } from "./util"
 import { load } from 'cheerio'
 import fetch from 'node-fetch'
-import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientOptions, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
+import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientConfig, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
 import FormData from 'form-data'
 import { Readable } from 'stream'
 export interface Size {
@@ -33,10 +33,7 @@ export interface SearchPicResultWithError {
     err?: string
     data?: IQDBSearchResultItem[]
 }
-export function setIQDBOptions(newOption: IQDBClientOptions) {
-    IQDB_OPTIONS = newOption
-}
-export let IQDB_OPTIONS: IQDBClientOptions = {
+export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
     simlarityPass: 0.6,
     userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
@@ -49,7 +46,7 @@ const _addToForm = (form: FormData, array: Array<IQDBLibs_2D | IQDBLibs_3D>) => 
  * @param noSource 指示结果中是否应该有source字段
  * @returns
  */
-export function _parseResult(body: string, noSource?: boolean) {
+export function parseResult(body: string, simlarityPass: number, noSource?: boolean) {
     const $ = load(body)
     let ok = false
     const err = $('.err')
@@ -74,7 +71,9 @@ export function _parseResult(body: string, noSource?: boolean) {
             } else if (head == 'No relevant matches') {
                 return
             } else {
-                let similarity: number | string, sizeAndType: string | { size: { width: number; height: number }; type: string }, source: string[]
+                let similarity: number | string,
+                    sizeAndType: string | { size: { width: number; height: number }; type: string },
+                    source: string[]
                 if (noSource) {
                     similarity = parseSimilarity($(rows[3]).text())
                     sizeAndType = parseSizeAndType($(rows[2]).text())
@@ -83,7 +82,7 @@ export function _parseResult(body: string, noSource?: boolean) {
                     sizeAndType = parseSizeAndType($(rows[3]).text())
                     source = $(rows[2]).text().split(' ')
                 }
-                if (similarity >= IQDB_OPTIONS.simlarityPass) ok = true
+                if (similarity >= simlarityPass) ok = true
                 const imgBox = $(rows[1]).find('a')
 
                 return {
@@ -101,32 +100,36 @@ export function _parseResult(body: string, noSource?: boolean) {
         data
     }
 }
-export default async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
-    const isMultiLib = lib == 'www' || lib == '3d'
-    const form = new FormData()
-    if (typeof pic == 'string') { form.append('url', pic) }
-    else if (pic instanceof Buffer || pic instanceof Readable) { form.append('file', pic, { filename: fileName ? fileName : randomFileName() }) }
-    else {
-        throw new TypeError('expect string | Buffer | Readable')
-    }
-    if (isMultiLib && libs) _addToForm(form, libs)
-    if (forcegray) form.append('forcegray', 'true')
-    const resp = await fetch(`https://${lib}.${IQDB_OPTIONS.baseDomain}`,
-        {
-            method: 'POST',
-            body: form,
-            headers: {
-                ...form.getHeaders(),
-                'User-Agent': IQDB_OPTIONS.userAgent
-            },
-            ...IQDB_OPTIONS.fetchOptions
-        })
-    if (resp.ok) {
-        return _parseResult(await resp.text(), !isMultiLib)
-    } else {
-        return {
-            ok: false,
-            err: 'HTTP ' + resp.status
-        } as SearchPicResultWithError
+export function makeSearchFunc(config: IQDBClientConfig) {
+    return async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
+        const isMultiLib = lib == 'www' || lib == '3d'
+        const form = new FormData()
+        if (typeof pic == 'string') { form.append('url', pic) }
+        else if (pic instanceof Buffer || pic instanceof Readable) { form.append('file', pic, { filename: fileName ? fileName : randomFileName() }) }
+        else {
+            throw new TypeError('expect string | Buffer | Readable')
+        }
+        if (isMultiLib && libs) _addToForm(form, libs)
+        if (forcegray) form.append('forcegray', 'true')
+        const resp = await fetch(`https://${lib}.${config.baseDomain}`,
+            {
+                method: 'POST',
+                body: form,
+                headers: {
+                    ...form.getHeaders(),
+                    'User-Agent': config.userAgent
+                },
+                ...config.fetchOptions
+            })
+        if (resp.ok) {
+            return parseResult(await resp.text(), config.simlarityPass, !isMultiLib)
+        } else {
+            return {
+                ok: false,
+                err: 'HTTP ' + resp.status
+            } as SearchPicResultWithError
+        }
     }
 }
+const searchPic = makeSearchFunc(defaultConfig)
+export default searchPic

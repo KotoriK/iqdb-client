@@ -6,5 +6,5 @@
  * @license MIT
  */
 export * from './h'
-import searchPic, { IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions } from './api'
-export { searchPic, IQDBSearchResultItem, Size, IQDB_OPTIONS, setIQDBOptions }
+import searchPic, { IQDBSearchResultItem, Size, makeSearchFunc, defaultConfig } from './api'
+export { searchPic, IQDBSearchResultItem, Size, makeSearchFunc, defaultConfig }
