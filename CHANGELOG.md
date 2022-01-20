@@ -1,6 +1,16 @@
+# [1.1.0](https://github.com/KotoriK/iqdb-client/compare/1.0.5...1.1.0) (2022-01-20)
+
+
+### Features
+
+* customize config ([288376a](https://github.com/KotoriK/iqdb-client/commit/288376a6b75bd71b686d9ee64d982a801c3177f1))
+* return services used in search ([3617143](https://github.com/KotoriK/iqdb-client/commit/3617143b91d615ece73cf5219fc7d9182884a5c3))
+
+
+
 ## [1.0.4](https://github.com/KotoriK/iqdb-client/compare/1.0.3...1.0.4) (2021-06-11)
 
-代码重构与依赖更新
+Code refactor and dependencies updates.
 
 ## [1.0.3](https://github.com/KotoriK/iqdb-client/compare/1.0.2...1.0.3) (2021-02-22)
 
