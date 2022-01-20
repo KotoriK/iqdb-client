@@ -93,44 +93,36 @@ Exception handle in this package is not mature yet due to lack of real test.
 ```json
 {
     "ok": true,
-    "data": [
-        {
-            "head": "Your image",
-            "img": "/thu/thu_114514jpg",
-            "name": "84035784_p2.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            }
-        },
-        {
-            "head": "Best match",
-            "sourceUrl": "//danbooru.donmai.us/posts/4076714",
-            "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            },
-            "type": "Safe",/*safe for work*/
-            "source": [
-                "Danbooru",
-                "Gelbooru"
-            ]
-        },
-        {
-            "head": "Additional match",
-            "sourceUrl": "https://yande.re/post/show/678391",
-            "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            },
-            "type": "Safe",
-            "source": [
-                "yande.re"
-            ]
+    "data": [{
+        "head": "Your image",
+        "img": "/thu/thu_114514.jpg",
+        "name": "84035784_p2.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
         }
-    ]
+    }, {
+        "head": "Best match",
+        "sourceUrl": "//danbooru.donmai.us/posts/4076714",
+        "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
+        },
+        "type": "Safe",
+        "source": ["Danbooru", "Gelbooru"]
+    }, {
+        "head": "Additional match",
+        "sourceUrl": "https://yande.re/post/show/678391",
+        "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
+        },
+        "type": "Safe",//shows whether is nsfw
+        "source": ["yande.re"]
+    }],
+    "service": [1, 2, 3, 4, 5, 6, 11, 13] //services used in this search
 }
 ```
 ## Advanced Usage

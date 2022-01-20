@@ -93,44 +93,36 @@ export enum IQDBLibs_3D {
 ```json
 {
     "ok": true,
-    "data": [
-        {
-            "head": "Your image",
-            "img": "/thu/thu_114514jpg",
-            "name": "84035784_p2.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            }
-        },
-        {
-            "head": "Best match",
-            "sourceUrl": "//danbooru.donmai.us/posts/4076714",
-            "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            },
-            "type": "Safe",/*表示不是色图*/
-            "source": [
-                "Danbooru",
-                "Gelbooru"
-            ]
-        },
-        {
-            "head": "Additional match",
-            "sourceUrl": "https://yande.re/post/show/678391",
-            "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
-            "size": {
-                "width": 1703,
-                "height": 2459
-            },
-            "type": "Safe",
-            "source": [
-                "yande.re"
-            ]
+    "data": [{
+        "head": "Your image",
+        "img": "/thu/thu_114514.jpg",
+        "name": "84035784_p2.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
         }
-    ]
+    }, {
+        "head": "Best match",
+        "sourceUrl": "//danbooru.donmai.us/posts/4076714",
+        "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
+        },
+        "type": "Safe",
+        "source": ["Danbooru", "Gelbooru"]
+    }, {
+        "head": "Additional match",
+        "sourceUrl": "https://yande.re/post/show/678391",
+        "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
+        "size": {
+            "width": 1703,
+            "height": 2459
+        },
+        "type": "Safe",//是否nsfw, 可能是'Safe' | 'Ero' | 'Explicit'中的一个值
+        "source": ["yande.re"]
+    }],
+    "service": [1, 2, 3, 4, 5, 6, 11, 13] //在本次搜索中用到了的库
 }
 ```
 ## 进阶用法

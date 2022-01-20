@@ -25,6 +25,8 @@ export type SearchPicResult = SearchPicResultWithError |
     ok: boolean,
     /**返回数据 */
     data: IQDBSearchResultItem[]
+    /**在哪些库做了搜索 */
+    service: Array<IQDBLibs_2D | IQDBLibs_3D>
 }
 export interface SearchPicResultWithError {
     /**是否找到满足相似度的结果 */
@@ -56,6 +58,12 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
             err: err.text()
         } as SearchPicResultWithError
     }
+    const service = $('input[type=checkbox][name="service[]"][checked]').toArray().map(element => {
+        const value = parseInt(element.attribs.value)
+        const name = IQDBLibs_2D[value] || IQDBLibs_3D[value]
+        if (!name) console.warn('Unknown lib: ' + value)
+        return value
+    })
     const data: Array<IQDBSearchResultItem> = $('#pages').children('div').toArray()
         .map(page => {
             const rows = $(page).find('tr')
@@ -97,7 +105,8 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
         .filter(item => item != undefined)
     return {
         ok,
-        data
+        data,
+        service
     }
 }
 export function makeSearchFunc(config: IQDBClientConfig) {
