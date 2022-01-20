@@ -10,12 +10,11 @@ iqdb.org api client for Node.js.
 - [亮点](#%E4%BA%AE%E7%82%B9)
 - [安装](#%E5%AE%89%E8%A3%85)
 - [用法](#%E7%94%A8%E6%B3%95)
-    - [进阶用法](#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95)
-      - [解析结果](#%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%9C)
-    - [返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)
-- [API](#api)
-    - [参数](#%E5%8F%82%E6%95%B0)
-    - [返回值](#%E8%BF%94%E5%9B%9E%E5%80%BC)
+  - [参数](#%E5%8F%82%E6%95%B0)
+    - [iqdb2d (lib='www')时可用的值:](#iqdb2d-libwww%E6%97%B6%E5%8F%AF%E7%94%A8%E7%9A%84%E5%80%BC)
+    - [3diqdb (lib='3d')时可用的值:](#3diqdb-lib3d%E6%97%B6%E5%8F%AF%E7%94%A8%E7%9A%84%E5%80%BC)
+  - [返回值](#%E8%BF%94%E5%9B%9E%E5%80%BC)
+- [进阶用法](#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95)
 - [支持](#%E6%94%AF%E6%8C%81)
 - [许可协议](#%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE)
 
@@ -38,46 +37,59 @@ yarn add iqdb-client
 ```ts
 const searchPic = require('iqdb-client')
 const result = (await searchPic('https://pixiv.cat/84035784-3.jpg', { lib: 'www' }))
+/** 也支持ES风格的导入*/
 //更多示例请查看./src/api.test.ts
 if(result.ok){
     console.log(result.data)
 }
 
 ```
-#### 进阶用法
+### 参数
 ```ts
-interface IQDBClientConfig {
-    baseDomain: string,
-    simlarityPass: number
-    userAgent: string,
-    fetchOptions?: import('node-fetch').RequestInit
+searchPic(pic: string | Buffer | Readable, 
+{ lib, forcegray, libs,fileName }: IQDB_SEARCH_OPTIONS_ALL)
+```
+* **lib**: *string, 必须提供* 
+想要使用多库搜索时，提供'www'(for iqdb2d)或'3d'(for 3diqdb),
+使用在[h.ts](./src/h.ts)```IQDB_SEARCH_LIBRARY_2D```中定义的其他值时将执行单库搜索。
+* **forcegray**: *boolean*  
+是否忽略颜色
+* **fileName**: *string*  
+表示表单中的‘filename’应为何值。仅在根据文件查找时有效。若没有提供，会自动生成一个随机文件名代替。
+* **service**: *Array&lt;number&gt;* 
+执行多库搜索时，决定在哪些库上搜索
+#### iqdb2d (lib='www')时可用的值:
+```ts
+export enum IQDBLibs_2D {
+    danbooru = 1,
+    konachan = 2,
+    'yande.re' = 3,
+    gelbooru = 4,
+    'sankaku channel' = 5,
+    'e-shuushuu' = 6,
+    zerochan = 11,
+    'anime-picture' = 13
 }
-const { makeSearchFunc } = require('iqdb-client')
-const searchPic = await makeSearchFunc({
-            baseDomain: `127.0.0.1`,
-            simlarityPass: 0.6,
-            userAgent: 'testa',
-        })
 ```
-使用```makeSearchFunc()```来自定义代理使用，相似度判定等选项。```makeSearchFunc()```会返回一个新的```searchPic()```
-默认导出的```searchPic()```使用```defaultConfig```：
+#### 3diqdb (lib='3d')时可用的值:
 ```ts
-export const defaultConfig: IQDBClientConfig = {
-    baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
-    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+export enum IQDBLibs_3D {
+    '3dbooru' = 7,
+    'idol' = 9
 }
 ```
-##### 解析结果
+### 返回值
+当成功完成请求, 函数会返回一个包含```{ok:boolean}```的对象， 如[返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)所展示的那样。如果相似度检查通过，```ok```字段会被设为```true```。
+若在执行中碰到错误, 函数会返回如下一个对象:
 ```ts
-const { parseResult,defaultConfig } = require('iqdb-client')
-parseResult(html,defaultConfig.simlarityPass)
+{
+    ok:false,
+    /*错误信息*/
+    err:'HTTP 400'
+}
 ```
-```ts
-parseResult(body: string, simlarityPass: number, noSource?: boolean)
-```
-详情参照[```/api.ts```](https://github.com/KotoriK/iqdb-client/blob/master/src/api.ts)
-#### 返回结果示例
+由于缺乏实例，错误处理还不是特别完善。欢迎就你碰到的问题提出issue。
+**返回结果示例**
 ```json
 {
     "ok": true,
@@ -121,32 +133,30 @@ parseResult(body: string, simlarityPass: number, noSource?: boolean)
     ]
 }
 ```
-## API
+## 进阶用法
 ```ts
-searchPic(pic: string | Buffer | Readable, 
-{ lib, forcegray, libs,fileName }: IQDB_SEARCH_OPTIONS_ALL)
+interface IQDBClientConfig {
+    baseDomain: string,
+    simlarityPass: number
+    userAgent: string,
+    fetchOptions?: import('node-fetch').RequestInit
+}
+const { makeSearchFunc } = require('iqdb-client')
+const searchPic = await makeSearchFunc({
+            baseDomain: `127.0.0.1`,
+            simlarityPass: 0.6,
+            userAgent: 'testa',
+        })
 ```
-#### 参数
-* **lib**: *string, required* 
-想要使用多库搜索时，提供'www'(for iqdb2d)或'3d'(for 3diqdb),
-使用在[h.ts](./src/h.ts)```IQDB_SEARCH_LIBRARY_2D```中定义的其他值时将执行单库搜索。
-* **forcegray**: *boolean*  
-是否忽略颜色
-* **fileName**: *string*  
-表示表单中的‘filename’应为何值。仅在根据文件查找时有效。若没有提供，会自动生成一个随机文件名代替。
-* **libs**: *Array&lt;number&gt;* 
-在执行多库搜索时，决定应该在搜索哪些库。仅当执行多库搜索时有效（```lib```为'www'或'3d）。更多细节可以查看在[h.ts](./src/h.ts)中定义的 ```IQDBLibs_2D``` 和 ```IQDBLibs_2D```类型。
-#### 返回值
-当成功完成请求, 函数会返回一个包含```{ok:true}```的对象， 如[返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)所展示的那样。
-若在执行中碰到错误, 函数会返回如下一个对象:
+使用```makeSearchFunc()```来自定义代理使用，相似度判定等选项。```makeSearchFunc()```会返回一个新的```searchPic()```
+默认导出的```searchPic()```使用```defaultConfig```：
 ```ts
-{
-    ok:false,
-    /*错误信息*/
-    err:'HTTP 400'
+export const defaultConfig: IQDBClientConfig = {
+    baseDomain: 'iqdb.org',
+    simlarityPass: 0.6,
+    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
-由于缺乏实例，错误处理还不是特别完善。欢迎就你碰到的问题提出issue。
 ## 支持
 
 * 支持[iqdb.org](https://www.iqdb.org/)

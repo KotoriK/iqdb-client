@@ -10,12 +10,11 @@ iqdb.org api client for Node.js.
 - [Feature](#feature)
 - [Install](#install)
 - [Usage](#usage)
-    - [Advanced Usage](#advanced-usage)
-      - [Parse Result](#parse-result)
-    - [Example Result](#example-result)
-- [API](#api)
-    - [params](#params)
-    - [Returns](#returns)
+  - [Params](#params)
+    - [services avaliable for iqdb2d (lib='www'):](#services-avaliable-for-iqdb2d-libwww)
+    - [services avaliable for 3diqdb (lib='3d'):](#services-avaliable-for-3diqdb-lib3d)
+  - [Returns](#returns)
+- [Advanced Usage](#advanced-usage)
 - [Support this package](#support-this-package)
 - [License](#license)
 
@@ -38,46 +37,59 @@ yarn add iqdb-client
 ```ts
 const searchPic = require('iqdb-client')
 const result = (await searchPic('https://pixiv.cat/84035784-3.jpg', { lib: 'www' }))
+/** also support ES Module Import*/
+
 //see ./src/api.test.ts for more examples.
 if(result.ok){
     console.log(result.data)
 }
 
 ```
-#### Advanced Usage
+### Params
 ```ts
-interface IQDBClientConfig {
-    baseDomain: string,
-    simlarityPass: number
-    userAgent: string,
-    fetchOptions?: import('node-fetch').RequestInit
+searchPic(pic: string | Buffer | Readable, 
+{ lib, forcegray, libs,fileName }: IQDB_SEARCH_OPTIONS_ALL)
+```
+* **lib**: *string, required* 
+'www'(for iqdb2d) or '3d'(for 3diqdb), or other lib name defined in type ```IQDB_SEARCH_LIBRARY_2D``` in [h.ts](./src/h.ts) for single-lib search.
+* **forcegray**: *boolean, default false* 
+whether ignore color.
+* **fileName**: *string*  
+Determines field 'filename' in form data. Only make sense when searching by files. When not provide, a random-summon string will hold the place.
+* **service**: *Array&lt;number&gt;* 
+Determine services to search on when performing search on multi-service.
+#### services avaliable for iqdb2d (lib='www'):
+```ts
+export enum IQDBLibs_2D {
+    danbooru = 1,
+    konachan = 2,
+    'yande.re' = 3,
+    gelbooru = 4,
+    'sankaku channel' = 5,
+    'e-shuushuu' = 6,
+    zerochan = 11,
+    'anime-picture' = 13
 }
-const { makeSearchFunc } = require('iqdb-client')
-const searchPic = await makeSearchFunc({
-            baseDomain: `127.0.0.1`,
-            simlarityPass: 0.6,
-            userAgent: 'testa',
-        })
 ```
-Use ```makeSearchFunc()```to customize config. ```makeSearchFunc()```will return a new ```searchPic()```
-```searchPic()``` which is default exported by this module uses ```defaultConfig```: 
+#### services avaliable for 3diqdb (lib='3d'):
 ```ts
-export const defaultConfig: IQDBClientConfig = {
-    baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
-    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+export enum IQDBLibs_3D {
+    '3dbooru' = 7,
+    'idol' = 9
 }
 ```
-##### Parse Result
+### Returns
+While successfully request iqdb.org, function will return an object with ```{ok:boolean}```. If similarity check passes, field ```ok``` will be set to ```true```. See [Example Result](#example-result)
+While meet exceptions, function will return it in an object as text. For example:
 ```ts
-const { parseResult,defaultConfig } = require('iqdb-client')
-parseResult(html,defaultConfig.simlarityPass)
+{
+    ok:false,
+    /*error info*/
+    err:'HTTP 400'
+}
 ```
-```ts
-parseResult(body: string, simlarityPass: number, noSource?: boolean)
-```
-Please refer to source for more detail. Source code: [```/api.ts```](https://github.com/KotoriK/iqdb-client/blob/master/src/api.ts)
-#### Example Result
+Exception handle in this package is not mature yet due to lack of real test.
+**Example Result**
 ```json
 {
     "ok": true,
@@ -121,31 +133,30 @@ Please refer to source for more detail. Source code: [```/api.ts```](https://git
     ]
 }
 ```
-## API
+## Advanced Usage
 ```ts
-searchPic(pic: string | Buffer | Readable, 
-{ lib, forcegray, libs,fileName }: IQDB_SEARCH_OPTIONS_ALL)
+interface IQDBClientConfig {
+    baseDomain: string,
+    simlarityPass: number
+    userAgent: string,
+    fetchOptions?: import('node-fetch').RequestInit
+}
+const { makeSearchFunc } = require('iqdb-client')
+const searchPic = await makeSearchFunc({
+            baseDomain: `127.0.0.1`,
+            simlarityPass: 0.6,
+            userAgent: 'testa',
+        })
 ```
-#### params
-* **lib**: *string, required* 
-'www'(for iqdb2d) or '3d'(for 3diqdb), or other lib name defined in type ```IQDB_SEARCH_LIBRARY_2D``` in [h.ts](./src/h.ts) for single-lib search.
-* **forcegray**: *boolean, default false* 
-whether ignore color.
-* **fileName**: *string*  
-Determines field 'filename' in form data. Only make sense when searching by files. When not provide, a random-summon string will hold the place.
-* **libs**: *Array&lt;number&gt;* 
-When performing search on multi-libs, determine which lib to search on. Only make sense when ```lib``` is 'www' or '3d'. Check type ```IQDBLibs_2D``` and type ```IQDBLibs_2D``` in [h.ts](./src/h.ts) for details.
-#### Returns
-While successfully, function will return an object with ```{ok:true}```. See [Example Result](#example-result)
-While meet exceptions, function will return it in an object as text. For example:
+Use ```makeSearchFunc()```to customize config. ```makeSearchFunc()```will return a new ```searchPic()```
+```searchPic()``` which is default exported by this module uses ```defaultConfig```: 
 ```ts
-{
-    ok:false,
-    /*error info*/
-    err:'HTTP 400'
+export const defaultConfig: IQDBClientConfig = {
+    baseDomain: 'iqdb.org',
+    simlarityPass: 0.6,
+    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
-Exception handle in this package is not mature yet due to lack of real test.
 ## Support this package
 
 * This package makes sense because of [iqdb.org](https://www.iqdb.org/). Support them is supporting the package.
