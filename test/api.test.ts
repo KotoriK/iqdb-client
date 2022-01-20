@@ -21,7 +21,7 @@ test('find by url, 3diqdb', async () => {
     expect(result.data.length).toBeGreaterThan(0)
 })
 test('find by url, multilib', async () => {
-    const result = (await searchPic('https://pixiv.cat/84035784-3.jpg', { lib: 'www', libs: [1, 2] }))
+    const result = (await searchPic('https://pixiv.cat/84035784-3.jpg', { lib: 'www', service: [1, 2] }))
     if (!result.ok) throw result
     expect(result.data.length).toBeGreaterThan(0)
 })

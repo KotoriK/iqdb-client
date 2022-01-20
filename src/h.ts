@@ -14,18 +14,17 @@ export interface IQDB_SEARCH_OPTIONS_GENERAL {
 }
 export type IQDB_SEARCH_OPTIONS_2D = ({
     lib: Exclude<IQDB_SEARCH_LIBRARY_2D, 'www'>,
-    libs?: undefined
-
+    service?: undefined
 } | {
     lib: 'www',
-    libs?: Array<IQDBLibs_2D>
+    service?: Array<IQDBLibs_2D>
 }) & IQDB_SEARCH_OPTIONS_GENERAL
 export type IQDB_SEARCH_OPTIONS_3D = ({
     lib: Exclude<IQDB_SEARCH_LIBRARY_3D, '3d'>,
-    libs?: undefined
+    service?: undefined
 } | {
     lib: '3d',
-    libs?: Array<IQDBLibs_3D>
+    service?: Array<IQDBLibs_3D>
 }) & IQDB_SEARCH_OPTIONS_GENERAL
 export type IQDB_SEARCH_OPTIONS_ALL = IQDB_SEARCH_OPTIONS_2D | IQDB_SEARCH_OPTIONS_3D
 

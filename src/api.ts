@@ -101,7 +101,7 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
     }
 }
 export function makeSearchFunc(config: IQDBClientConfig) {
-    return async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
+    return async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, service: libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
         const isMultiLib = lib == 'www' || lib == '3d'
         const form = new FormData()
         if (typeof pic == 'string') { form.append('url', pic) }
