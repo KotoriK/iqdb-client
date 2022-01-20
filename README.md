@@ -119,7 +119,7 @@ Exception handle in this package is not mature yet due to lack of real test.
             "width": 1703,
             "height": 2459
         },
-        "type": "Safe",//shows whether is nsfw
+        "type": "Safe",//shows whether is nsfw, might be one of 'Safe' | 'Ero' | 'Explicit'
         "source": ["yande.re"]
     }],
     "service": [1, 2, 3, 4, 5, 6, 11, 13] //services used in this search
