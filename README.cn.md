@@ -11,6 +11,7 @@ iqdb.org api client for Node.js.
 - [安装](#%E5%AE%89%E8%A3%85)
 - [用法](#%E7%94%A8%E6%B3%95)
     - [进阶用法](#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95)
+      - [解析结果](#%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%9C)
     - [返回结果示例](#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B)
 - [API](#api)
     - [参数](#%E5%8F%82%E6%95%B0)
@@ -45,22 +46,37 @@ if(result.ok){
 ```
 #### 进阶用法
 ```ts
-export interface IQDBClientOptions {
+interface IQDBClientConfig {
     baseDomain: string,
     simlarityPass: number
-    userAgent:string
-    /*直接传递给node-fetch的选项*/
-    fetchOptions?:import('node-fetch').RequestInit
+    userAgent: string,
+    fetchOptions?: import('node-fetch').RequestInit
 }
-//选项默认值
-export let IQDB_OPTIONS: IQDBClientOptions = {
+const { makeSearchFunc } = require('iqdb-client')
+const searchPic = await makeSearchFunc({
+            baseDomain: `127.0.0.1`,
+            simlarityPass: 0.6,
+            userAgent: 'testa',
+        })
+```
+使用```makeSearchFunc()```来自定义代理使用，相似度判定等选项。```makeSearchFunc()```会返回一个新的```searchPic()```
+默认导出的```searchPic()```使用```defaultConfig```：
+```ts
+export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
     simlarityPass: 0.6,
-    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
-这些选项存储在```IQDB_OPTIONS```中，直接修改这个对象来修改选项。如果你想一次修改所有选项，使用```setIQDBOptions()```
-
+##### 解析结果
+```ts
+const { parseResult,defaultConfig } = require('iqdb-client')
+parseResult(html,defaultConfig.simlarityPass)
+```
+```ts
+parseResult(body: string, simlarityPass: number, noSource?: boolean)
+```
+详情参照[```/api.ts```](https://github.com/KotoriK/iqdb-client/blob/master/src/api.ts)
 #### 返回结果示例
 ```json
 {

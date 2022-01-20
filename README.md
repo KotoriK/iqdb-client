@@ -11,6 +11,7 @@ iqdb.org api client for Node.js.
 - [Install](#install)
 - [Usage](#usage)
     - [Advanced Usage](#advanced-usage)
+      - [Parse Result](#parse-result)
     - [Example Result](#example-result)
 - [API](#api)
     - [params](#params)
@@ -45,23 +46,37 @@ if(result.ok){
 ```
 #### Advanced Usage
 ```ts
-export interface IQDBClientOptions {
+interface IQDBClientConfig {
     baseDomain: string,
     simlarityPass: number
-    userAgent:string
-    /*options pass directly to node-fetch*/
-    fetchOptions?:import('node-fetch').RequestInit
+    userAgent: string,
+    fetchOptions?: import('node-fetch').RequestInit
 }
-//default options
-export let IQDB_OPTIONS: IQDBClientOptions = {
+const { makeSearchFunc } = require('iqdb-client')
+const searchPic = await makeSearchFunc({
+            baseDomain: `127.0.0.1`,
+            simlarityPass: 0.6,
+            userAgent: 'testa',
+        })
+```
+Use ```makeSearchFunc()```to customize config. ```makeSearchFunc()```will return a new ```searchPic()```
+```searchPic()``` which is default exported by this module uses ```defaultConfig```: 
+```ts
+export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
     simlarityPass: 0.6,
-    userAgent:'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
-These options are saved in ```IQDB_OPTIONS```. Simply modify it to change the options.
-In case of changing all the options at one time, use ```setIQDBOptions()```
-
+##### Parse Result
+```ts
+const { parseResult,defaultConfig } = require('iqdb-client')
+parseResult(html,defaultConfig.simlarityPass)
+```
+```ts
+parseResult(body: string, simlarityPass: number, noSource?: boolean)
+```
+Please refer to source for more detail. Source code: [```/api.ts```](https://github.com/KotoriK/iqdb-client/blob/master/src/api.ts)
 #### Example Result
 ```json
 {
