@@ -30,7 +30,8 @@ export interface SearchPicResultWithError {
     /**是否找到满足相似度的结果 */
     ok: false,
     /**是否发生错误 */
-    err: string
+    err?: string
+    data?: IQDBSearchResultItem[]
 }
 export function setIQDBOptions(newOption: IQDBClientOptions) {
     IQDB_OPTIONS = newOption
