@@ -1,6 +1,6 @@
 export interface IQDBClientConfig {
     baseDomain: string,
-    simlarityPass: number
+    similarityPass: number
     userAgent: string,
     fetchOptions?: import('node-fetch').RequestInit
 }

@@ -38,7 +38,7 @@ export interface SearchPicResultWithError {
 }
 export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
+    similarityPass: 0.6,
     userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 const _addToForm = (form: FormData, array: Array<IQDBLibs_2D | IQDBLibs_3D>) => array.forEach(lib => { form.append('service[]', lib) })
@@ -135,7 +135,7 @@ export function makeSearchFunc(config: IQDBClientConfig) {
                 ...config.fetchOptions
             })
         if (resp.ok) {
-            return parseResult(await resp.text(), config.simlarityPass, !isMultiLib)
+            return parseResult(await resp.text(), config.similarityPass, !isMultiLib)
         } else {
             return {
                 ok: false,
