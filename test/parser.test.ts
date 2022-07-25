@@ -1,10 +1,17 @@
-import { defaultConfig, parseResult } from '../src/api'
+import { parseResult } from '../src/api'
 import fs from 'fs/promises'
 import { resolve } from 'path'
-test('parser', async () => {
-    const parsedResult = fs.readFile(resolve(__dirname, '../test/response.html'), { encoding: 'utf-8' })
-        .then(txt => parseResult(txt, defaultConfig.simlarityPass))
-    const shouldBe = fs.readFile(resolve(__dirname, '../test/response.json'), { encoding: 'utf-8' })
-        .then(txt => JSON.parse(txt))
-    expect(await parsedResult).toEqual(await shouldBe)
+
+describe(parseResult, () => {
+    test('parses response1', async () => {
+        const response1 = await fs.readFile(resolve(__dirname, '../test/__testData__/response1.html'), { encoding: 'utf-8' });
+
+        expect(parseResult(response1, 0)).toMatchSnapshot();
+    })
+
+    test('parses response2', async () => {
+        const response2 = await fs.readFile(resolve(__dirname, '../test/__testData__/response2.html'), { encoding: 'utf-8' });
+
+        expect(parseResult(response2, 0)).toMatchSnapshot();
+    })
 })

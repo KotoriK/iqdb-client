@@ -14,7 +14,8 @@ export type IQDBSearchResultItem = {
     name?: string,
     sourceUrl?: string,
     source?: string[],
-    similarity?: number
+    // number between 0 and 1 or null if no similarity provided
+    similarity: number | null
 } & ({
     size?: Size,
     type?: IQDB_RESULT_TYPE
@@ -43,12 +44,12 @@ export const defaultConfig: IQDBClientConfig = {
 const _addToForm = (form: FormData, array: Array<IQDBLibs_2D | IQDBLibs_3D>) => array.forEach(lib => { form.append('service[]', lib) })
 
 /**
- * 
+ *
  * @param body 服务器返回的body
  * @param noSource 指示结果中是否应该有source字段
  * @returns
  */
-export function parseResult(body: string, simlarityPass: number, noSource?: boolean) {
+export function parseResult(body: string, similarityPass: number, noSource?: boolean) {
     const $ = load(body)
     let ok = false
     const err = $('.err')
@@ -65,7 +66,7 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
         return value
     })
     const data: Array<IQDBSearchResultItem> = $('#pages').children('div').toArray()
-        .map(page => {
+        .map((page): IQDBSearchResultItem => {
             const rows = $(page).find('tr')
             const head = $(rows[0]).text()
             if (head == 'Your image') {
@@ -74,6 +75,8 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
                     head,
                     img: $(rows[1]).find('img').attr('src'),
                     name: $(rows[2]).text(),
+                    // no similarity for your own image
+                    similarity: null,
                     ...typeof sizeAndType == 'object' ? sizeAndType : { sizeAndType }
                 }
             } else if (head == 'No relevant matches') {
@@ -90,15 +93,16 @@ export function parseResult(body: string, simlarityPass: number, noSource?: bool
                     sizeAndType = parseSizeAndType($(rows[3]).text())
                     source = $(rows[2]).text().split(' ')
                 }
-                if (similarity >= simlarityPass) ok = true
+                if (similarity >= similarityPass) ok = true
                 const imgBox = $(rows[1]).find('a')
 
                 return {
                     head,
                     sourceUrl: imgBox.attr('href'),
+                    similarity,
                     img: imgBox.find('img').attr('src'),
                     ...typeof sizeAndType == 'object' ? sizeAndType : { sizeAndType },
-                    source
+                    source,
                 }
             }
         })
