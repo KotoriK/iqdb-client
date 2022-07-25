@@ -1,4 +1,4 @@
-import { parseSimilarity, parseSizeAndType, randomFileName } from "./util"
+import { parseSimilarity, parseSizeAndType, getRandomName } from "./util"
 import { load } from 'cheerio'
 import fetch from 'node-fetch'
 import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientConfig, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
@@ -59,12 +59,13 @@ export function parseResult(body: string, similarityPass: number, noSource?: boo
             err: err.text()
         } as SearchPicResultWithError
     }
-    const service = $('input[type=checkbox][name="service[]"][checked]').toArray().map(element => {
-        const value = parseInt(element.attribs.value)
-        const name = IQDBLibs_2D[value] || IQDBLibs_3D[value]
-        if (!name) console.warn('Unknown lib: ' + value)
-        return value
-    })
+    const service = $('input[type=checkbox][name="service[]"][checked]').toArray()
+        .map(element => {
+            const value = parseInt(element.attribs.value)
+            const name = IQDBLibs_2D[value] || IQDBLibs_3D[value]
+            if (!name) console.warn('Unknown lib: ' + value)
+            return value
+        })
     const data: Array<IQDBSearchResultItem> = $('#pages').children('div').toArray()
         .map((page): IQDBSearchResultItem => {
             const rows = $(page).find('tr')
@@ -82,8 +83,8 @@ export function parseResult(body: string, similarityPass: number, noSource?: boo
             } else if (head == 'No relevant matches') {
                 return
             } else {
-                let similarity: number | string,
-                    sizeAndType: string | { size: { width: number; height: number }; type: string },
+                let similarity: number,
+                    sizeAndType: string | { size: Size; type: string },
                     source: string[]
                 if (noSource) {
                     similarity = parseSimilarity($(rows[3]).text())
@@ -115,13 +116,11 @@ export function parseResult(body: string, similarityPass: number, noSource?: boo
 }
 export function makeSearchFunc(config: IQDBClientConfig) {
     return async function searchPic(pic: string | Buffer | Readable, { lib, forcegray, service: libs, fileName }: IQDB_SEARCH_OPTIONS_ALL): Promise<SearchPicResult> {
-        const isMultiLib = lib == 'www' || lib == '3d'
+        const isMultiLib = (lib == 'www' || lib == '3d')
         const form = new FormData()
         if (typeof pic == 'string') { form.append('url', pic) }
-        else if (pic instanceof Buffer || pic instanceof Readable) { form.append('file', pic, { filename: fileName ? fileName : randomFileName() }) }
-        else {
-            throw new TypeError('expect string | Buffer | Readable')
-        }
+        else if (pic instanceof Buffer || pic instanceof Readable) { form.append('file', pic, { filename: fileName || getRandomName() }) }
+        else throw new TypeError('expect string | Buffer | Readable')
         if (isMultiLib && libs) _addToForm(form, libs)
         if (forcegray) form.append('forcegray', 'true')
         const resp = await fetch(`https://${lib}.${config.baseDomain}`,

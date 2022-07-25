@@ -1,3 +1,6 @@
+import { Size } from "./api"
+import { IQDB_RESULT_TYPE } from "./h"
+
 export function parseSimilarity(txt: string): number | null {
     const result = txt.match(/(-?\d+\.?\d*)(%?)/)
     if (result) {
@@ -6,21 +9,22 @@ export function parseSimilarity(txt: string): number | null {
         return null//couldn't parse similarity
     }
 }
-export function parseSizeAndType(txt: string) {
+export function parseSizeAndType(txt: string): { size: Size, type: IQDB_RESULT_TYPE } | string {
     const result = txt.match(/(\d+)×(\d+)(?: \[([A-z]*)\])?/)
     if (result) {
         return {
             size: {
                 width: parseInt(result[1]),
                 height: parseInt(result[2])
-            }, type: result[3]
+            },
+            type: result[3]
         }
     } else {
         return txt
     }
 }
 const baseArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"]
-export function randomFileName() {
+export function getRandomName() {
     const length = 5 + (Math.random() * 10 | 0)
     const baseArrayLength = baseArray.length
     let str = ''
