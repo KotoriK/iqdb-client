@@ -1,5 +1,5 @@
 # iqdb-client
-[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
 
 iqdb.org api client for Node.js.
 
@@ -7,7 +7,9 @@ iqdb.org api client for Node.js.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Feature](#feature)
+- [BREAK CHANGE](#break-change)
 - [Install](#install)
 - [Usage](#usage)
   - [Params](#params)
@@ -27,6 +29,9 @@ iqdb.org api client for Node.js.
 * Support both iqdb2d and iqdb3d.
 * Support searching by file(buffer or stream) and url
 * Based on Fetch
+## BREAK CHANGE
+Since ```2.0.0```, miss typo of word ```similarity``` has been fixed, thus corresponding field in your custom ```IQDBClientConfig``` should be change. If you are using default config, you are good to go.
+The type of field ```similarity``` in interface ```IQDBSearchResultItem``` has been changed from ```number | string``` to ```number | null```，meaning it will not fallback to string while parsing failed.
 ## Install
 ```bash
 npm install iqdb-client
@@ -97,13 +102,16 @@ Exception handle in this package is not mature yet due to lack of real test.
         "head": "Your image",
         "img": "/thu/thu_114514.jpg",
         "name": "84035784_p2.jpg",
+        "similarity": null,
         "size": {
             "width": 1703,
             "height": 2459
-        }
+        },
+        "type": null
     }, {
         "head": "Best match",
         "sourceUrl": "//danbooru.donmai.us/posts/4076714",
+        "similarity": 0.96,
         "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
         "size": {
             "width": 1703,
@@ -114,6 +122,7 @@ Exception handle in this package is not mature yet due to lack of real test.
     }, {
         "head": "Additional match",
         "sourceUrl": "https://yande.re/post/show/678391",
+        "similarity": 0.92,
         "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
         "size": {
             "width": 1703,
@@ -129,14 +138,14 @@ Exception handle in this package is not mature yet due to lack of real test.
 ```ts
 interface IQDBClientConfig {
     baseDomain: string,
-    simlarityPass: number
+    similarityPass: number
     userAgent: string,
     fetchOptions?: import('node-fetch').RequestInit
 }
 const { makeSearchFunc } = require('iqdb-client')
 const searchPic = await makeSearchFunc({
             baseDomain: `127.0.0.1`,
-            simlarityPass: 0.6,
+            similarityPass: 0.6,
             userAgent: 'testa',
         })
 ```
@@ -145,7 +154,7 @@ Use ```makeSearchFunc()```to customize config. ```makeSearchFunc()```will return
 ```ts
 export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
+    similarityPass: 0.6,
     userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```

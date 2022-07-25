@@ -1,5 +1,5 @@
 # iqdb-client
-[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
 
 iqdb.org api client for Node.js.
 
@@ -7,7 +7,9 @@ iqdb.org api client for Node.js.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [亮点](#%E4%BA%AE%E7%82%B9)
+- [破坏性更改](#%E7%A0%B4%E5%9D%8F%E6%80%A7%E6%9B%B4%E6%94%B9)
 - [安装](#%E5%AE%89%E8%A3%85)
 - [用法](#%E7%94%A8%E6%B3%95)
   - [参数](#%E5%8F%82%E6%95%B0)
@@ -27,6 +29,9 @@ iqdb.org api client for Node.js.
 * 同时支持iqdb2d与iqdb3d.
 * 支持上传文件搜索(通过Buffer或Stream)和根据图片地址搜索
 * 基于Fetch
+## 破坏性更改
+自```2.0.0```，对```similarity```一词的误拼已被修复，你若修改了```IQDBClientConfig```中对应的字段，那你可能需要做出更改。如果你使用的是默认的```IQDBClientConfig```，那这一更改对你不会有什么影响。
+```IQDBSearchResultItem```中```similarity```字段的类型由```number | string```变为```number | null```，意味着解析失败时不再返回文本。
 ## 安装
 ```bash
 npm install iqdb-client
@@ -97,13 +102,16 @@ export enum IQDBLibs_3D {
         "head": "Your image",
         "img": "/thu/thu_114514.jpg",
         "name": "84035784_p2.jpg",
+        "similarity": null,
         "size": {
             "width": 1703,
             "height": 2459
-        }
+        },
+        "type": null
     }, {
         "head": "Best match",
         "sourceUrl": "//danbooru.donmai.us/posts/4076714",
+        "similarity": 0.96,
         "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
         "size": {
             "width": 1703,
@@ -114,6 +122,7 @@ export enum IQDBLibs_3D {
     }, {
         "head": "Additional match",
         "sourceUrl": "https://yande.re/post/show/678391",
+        "similarity": 0.92,
         "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
         "size": {
             "width": 1703,
@@ -129,14 +138,14 @@ export enum IQDBLibs_3D {
 ```ts
 interface IQDBClientConfig {
     baseDomain: string,
-    simlarityPass: number
+    similarityPass: number
     userAgent: string,
     fetchOptions?: import('node-fetch').RequestInit
 }
 const { makeSearchFunc } = require('iqdb-client')
 const searchPic = await makeSearchFunc({
             baseDomain: `127.0.0.1`,
-            simlarityPass: 0.6,
+            similarityPass: 0.6,
             userAgent: 'testa',
         })
 ```
@@ -145,7 +154,7 @@ const searchPic = await makeSearchFunc({
 ```ts
 export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
-    simlarityPass: 0.6,
+    similarityPass: 0.6,
     userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
 ```
