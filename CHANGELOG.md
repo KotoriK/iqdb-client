@@ -1,3 +1,8 @@
+# [2.0.0](https://github.com/KotoriK/iqdb-client/compare/1.1.0...2.0.0) (2022-07-25)
+* **BREAK CHANGE**: simlarityPass -> similarityPass
+* fix similarity parse; use snapshots for tests ([f59bd34](https://github.com/KotoriK/iqdb-client/commit/f59bd3481302431b301585729455c52bb5aa6994))
+* update dependencies and documents
+
 # [1.1.0](https://github.com/KotoriK/iqdb-client/compare/1.0.5...1.1.0) (2022-01-20)
 
 
@@ -5,6 +10,10 @@
 
 * customize config ([288376a](https://github.com/KotoriK/iqdb-client/commit/288376a6b75bd71b686d9ee64d982a801c3177f1))
 * return services used in search ([3617143](https://github.com/KotoriK/iqdb-client/commit/3617143b91d615ece73cf5219fc7d9182884a5c3))
+
+
+
+## [1.0.5](https://github.com/KotoriK/iqdb-client/compare/1.0.4...1.0.5) (2021-06-11)
 
 
 
