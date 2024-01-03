@@ -41,7 +41,11 @@ export const defaultConfig: IQDBClientConfig = {
     similarityPass: 0.6,
     userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
 }
-const _addToForm = (form: FormData, array: Array<IQDBLibs_2D | IQDBLibs_3D>) => array.forEach(lib => { form.append('service[]', lib) })
+function _addToForm(form: FormData, libs: Array<IQDBLibs_2D | IQDBLibs_3D>) {
+    for (const lib of libs) {
+        form.append('service[]', lib)
+    }
+}
 
 /**
  *
