@@ -1,8 +1,6 @@
-import { parseSimilarity, parseSizeAndType, getRandomName } from "./util"
+import { parseSimilarity, parseSizeAndType, getRandomName, readableToBuffer } from "./util"
 import { load } from 'cheerio'
-import fetch from 'node-fetch'
 import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientConfig, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
-import FormData from 'form-data'
 import { Readable } from 'stream'
 export interface Size {
     width: number
@@ -39,7 +37,7 @@ export interface SearchPicResultWithError {
 export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
     similarityPass: 0.6,
-    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    userAgent: 'node',
 }
 function _addToForm(form: FormData, libs: Array<IQDBLibs_2D | IQDBLibs_3D>) {
     for (const lib of libs) {
@@ -123,7 +121,8 @@ export function makeSearchFunc(config: IQDBClientConfig) {
         const isMultiLib = (lib == 'www' || lib == '3d')
         const form = new FormData()
         if (typeof pic == 'string') { form.append('url', pic) }
-        else if (pic instanceof Buffer || pic instanceof Readable) { form.append('file', pic, { filename: fileName || getRandomName() }) }
+        else if (pic instanceof Buffer) { form.append('file', new Blob([pic]), fileName || getRandomName()) }
+        else if (pic instanceof Readable) { form.append('file', new Blob([await readableToBuffer(pic)]), fileName || getRandomName()) }
         else throw new TypeError('expect string | Buffer | Readable')
         if (isMultiLib && libs) _addToForm(form, libs)
         if (forcegray) form.append('forcegray', 'true')
@@ -132,7 +131,6 @@ export function makeSearchFunc(config: IQDBClientConfig) {
                 method: 'POST',
                 body: form,
                 headers: {
-                    ...form.getHeaders(),
                     'User-Agent': config.userAgent
                 },
                 ...config.fetchOptions

@@ -40,16 +40,13 @@
   "homepage": "https://github.com/KotoriK/iqdb-client#readme",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "form-data": "^4.0.0",
-    "node-fetch": "^2.6.7"
+    "cheerio": "^1.0.0-rc.12"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.0",
-    "@types/node-fetch": "^2.6.2",
     "cz-conventional-changelog": "^3.3.0",
     "jest": "^28.1.3",
     "microbundle": "^0.15.0",
@@ -62,7 +59,7 @@
     }
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   }
 }
 
