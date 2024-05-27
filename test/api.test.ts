@@ -1,5 +1,6 @@
 import searchPic from "../src/api";
 import fs from 'fs/promises'
+import { createReadStream } from "fs";
 import { resolve } from 'path'
 jest.setTimeout(30000);
 
@@ -30,6 +31,12 @@ test('find by url, multilib', async () => {
 })
 test('find by local res', async () => {
     const result = (await searchPic(await fs.readFile(resolve(__dirname, '../test/84035784_p2.jpg')), { lib: 'www' }))
+    console.log(result)
+    if (!result.ok) throw result
+    expect(result.data.length).toBeGreaterThan(0)
+})
+test('find by local res, by stream', async () => {
+    const result = (await searchPic(createReadStream(resolve(__dirname, '../test/84035784_p2.jpg')), { lib: 'www' }))
     console.log(result)
     if (!result.ok) throw result
     expect(result.data.length).toBeGreaterThan(0)

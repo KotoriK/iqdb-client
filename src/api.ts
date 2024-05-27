@@ -1,4 +1,4 @@
-import { parseSimilarity, parseSizeAndType, getRandomName, readableToBuffer } from "./util"
+import { parseSimilarity, parseSizeAndType, getRandomName, asyncIterableToArray } from "./util"
 import { load } from 'cheerio'
 import { IQDB_SEARCH_OPTIONS_ALL, IQDBClientConfig, IQDBLibs_2D, IQDBLibs_3D, IQDB_RESULT_TYPE } from "./h"
 import { Readable } from 'stream'
@@ -41,7 +41,7 @@ export const defaultConfig: IQDBClientConfig = {
 }
 function _addToForm(form: FormData, libs: Array<IQDBLibs_2D | IQDBLibs_3D>) {
     for (const lib of libs) {
-        form.append('service[]', lib)
+        form.append('service[]', lib.toString())
     }
 }
 
@@ -122,7 +122,7 @@ export function makeSearchFunc(config: IQDBClientConfig) {
         const form = new FormData()
         if (typeof pic == 'string') { form.append('url', pic) }
         else if (pic instanceof Buffer) { form.append('file', new Blob([pic]), fileName || getRandomName()) }
-        else if (pic instanceof Readable) { form.append('file', new Blob([await readableToBuffer(pic)]), fileName || getRandomName()) }
+        else if (pic instanceof Readable) { form.append('file', new Blob(await asyncIterableToArray(pic)), fileName || getRandomName()) }
         else throw new TypeError('expect string | Buffer | Readable')
         if (isMultiLib && libs) _addToForm(form, libs)
         if (forcegray) form.append('forcegray', 'true')

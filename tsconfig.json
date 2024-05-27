@@ -22,7 +22,7 @@
         "declaration": true,
         "declarationMap": false,
         "lib": [ // 要那些 lib，按需选择即可
-            "ESNext"
+            "ESNext","DOM"
         ],
         "noFallthroughCasesInSwitch": false,
         // 指定库的搜索路径，这个比较有用，一般会指定 @types，还可以按需添加

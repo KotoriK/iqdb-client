@@ -1,6 +1,5 @@
 import { Size } from "./api"
 import { IQDB_RESULT_TYPE } from "./h"
-import { Readable } from 'stream'
 
 export function parseSimilarity(txt: string): number | null {
     const result = txt.match(/(-?\d+\.?\d*)(%?)/)
@@ -34,10 +33,11 @@ export function getRandomName() {
     }
     return str + '.jpg'
 }
-export async function readableToBuffer(readable: Readable): Promise<Buffer> {
-    const chunks: Buffer[] = []
-    for await (const chunk of readable) {
-        chunks.push(chunk)
+
+export async function asyncIterableToArray<T>(asyncIterable: AsyncIterable<T>): Promise<Array<T>> {
+    const result = []
+    for await (const item of asyncIterable) {
+        result.push(item)
     }
-    return Buffer.concat(chunks)
+    return result
 }
