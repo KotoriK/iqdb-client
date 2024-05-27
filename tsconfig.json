@@ -32,7 +32,6 @@
         // 库搜索路径下, 仅使用哪些库, 一般没啥用
         // "types": []
         ,
-        "charset": "utf-8"
     },
     // file include会算出一个交集, 指明哪些是项目的 ts 文件
     "include": [

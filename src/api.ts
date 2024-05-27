@@ -14,7 +14,9 @@ export type IQDBSearchResultItem = {
     name?: string,
     sourceUrl?: string,
     source?: string[],
-    // number between 0 and 1 or null if no similarity provided
+    /**
+     * number between 0 and 1 or null if no similarity provided
+     */
     similarity: number | null
 } & ({
     size?: Size,
