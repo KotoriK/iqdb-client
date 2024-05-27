@@ -140,7 +140,7 @@ interface IQDBClientConfig {
     baseDomain: string,
     similarityPass: number
     userAgent: string,
-    fetchOptions?: import('node-fetch').RequestInit
+    fetchOptions?: RequestInit
 }
 const { makeSearchFunc } = require('iqdb-client')
 const searchPic = await makeSearchFunc({
@@ -155,7 +155,7 @@ Use ```makeSearchFunc()```to customize config. ```makeSearchFunc()```will return
 export const defaultConfig: IQDBClientConfig = {
     baseDomain: 'iqdb.org',
     similarityPass: 0.6,
-    userAgent: 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    userAgent: 'node',
 }
 ```
 ## Support this package

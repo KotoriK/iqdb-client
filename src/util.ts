@@ -33,3 +33,11 @@ export function getRandomName() {
     }
     return str + '.jpg'
 }
+
+export async function asyncIterableToArray<T>(asyncIterable: AsyncIterable<T>): Promise<Array<T>> {
+    const result = []
+    for await (const item of asyncIterable) {
+        result.push(item)
+    }
+    return result
+}

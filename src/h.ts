@@ -2,7 +2,7 @@ export interface IQDBClientConfig {
     baseDomain: string,
     similarityPass: number
     userAgent: string,
-    fetchOptions?: import('node-fetch').RequestInit
+    fetchOptions?: RequestInit
 }
 /**'www'search all libs */
 export type IQDB_SEARCH_LIBRARY_2D = 'danbooru' | 'konachan' | 'yandere' | 'gelbooru' | 'sankaku' | 'e-shuushuu' | 'zerochan' | 'anime-pictures' | 'www'
