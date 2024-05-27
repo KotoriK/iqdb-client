@@ -1,5 +1,5 @@
 # iqdb-client
-[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/actions/workflow/status/KotoriK/iqdb-client/test.yml?branch=master)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
 
 iqdb.org api client for Node.js.
 
@@ -9,7 +9,7 @@ iqdb.org api client for Node.js.
 
 
 - [Feature](#feature)
-- [BREAK CHANGE](#break-change)
+- [BREAK CHANGES](#break-changes)
 - [Install](#install)
 - [Usage](#usage)
   - [Params](#params)
@@ -29,7 +29,11 @@ iqdb.org api client for Node.js.
 * Support both iqdb2d and iqdb3d.
 * Support searching by file(buffer or stream) and url
 * Based on Fetch
-## BREAK CHANGE
+
+## BREAK CHANGES
+
+Since ```3.0.0```, minimum Nodejs requirement is updated to Node v18, due to a shift from ```node-fetch``` to native fetch.
+
 Since ```2.0.0```, miss typo of word ```similarity``` has been fixed, thus corresponding field in your custom ```IQDBClientConfig``` should be change. If you are using default config, you are good to go.
 The type of field ```similarity``` in interface ```IQDBSearchResultItem``` has been changed from ```number | string``` to ```number | null```，meaning it will not fallback to string while parsing failed.
 ## Install
@@ -164,4 +168,4 @@ export const defaultConfig: IQDBClientConfig = {
 * Open issue or PR for questions.
 
 ## License
-The code contained within this repository is licensed under the MIT License. See [LICENSE](./LICENSE) for more information.
+The code contained within this repository is licensed under the ```MIT``` License. See [LICENSE](./LICENSE) for more information.

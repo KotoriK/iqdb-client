@@ -1,43 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parseResult parses response1 1`] = `
-Object {
-  "data": Array [
-    Object {
+{
+  "data": [
+    {
       "head": "Your image",
       "img": "/thu/thu_114514.jpg",
       "name": "84035784_p2.jpg",
       "similarity": null,
-      "size": Object {
+      "size": {
         "height": 2459,
         "width": 1703,
       },
       "type": undefined,
     },
-    Object {
+    {
       "head": "Best match",
       "img": "/danbooru/1/f/8/1f8ff3c560a0689e795938138dac7b1f.jpg",
       "similarity": 0.96,
-      "size": Object {
+      "size": {
         "height": 2459,
         "width": 1703,
       },
-      "source": Array [
+      "source": [
         "Danbooru",
         "Gelbooru",
       ],
       "sourceUrl": "//danbooru.donmai.us/posts/4076714",
       "type": "Safe",
     },
-    Object {
+    {
       "head": "Additional match",
       "img": "/moe.imouto/8/0/1/801df5f665e61e6f87eb85431f2ca2a1.jpg",
       "similarity": 0.92,
-      "size": Object {
+      "size": {
         "height": 2459,
         "width": 1703,
       },
-      "source": Array [
+      "source": [
         "yande.re",
       ],
       "sourceUrl": "https://yande.re/post/show/678391",
@@ -45,7 +45,7 @@ Object {
     },
   ],
   "ok": true,
-  "service": Array [
+  "service": [
     1,
     2,
     3,
@@ -59,57 +59,57 @@ Object {
 `;
 
 exports[`parseResult parses response2 1`] = `
-Object {
-  "data": Array [
-    Object {
+{
+  "data": [
+    {
       "head": "Your image",
       "img": "/thu/thu_63ea49f3.jpg",
       "name": "i10yn9O72A33.jpg",
       "similarity": null,
-      "size": Object {
+      "size": {
         "height": 3300,
         "width": 2285,
       },
       "type": undefined,
     },
-    Object {
+    {
       "head": "Best match",
       "img": "/danbooru/1/e/a/1eae91afbfc9610ed741766d3f1c6aa4.jpg",
       "similarity": 0.95,
-      "size": Object {
+      "size": {
         "height": 3300,
         "width": 2285,
       },
-      "source": Array [
+      "source": [
         "Danbooru",
         "Gelbooru",
       ],
       "sourceUrl": "//danbooru.donmai.us/posts/5524659",
       "type": "Ero",
     },
-    Object {
+    {
       "head": "Additional match",
       "img": "/moe.imouto/1/e/a/1eae91afbfc9610ed741766d3f1c6aa4.jpg",
       "similarity": 0.95,
-      "size": Object {
+      "size": {
         "height": 3300,
         "width": 2285,
       },
-      "source": Array [
+      "source": [
         "yande.re",
       ],
       "sourceUrl": "https://yande.re/post/show/1000890",
       "type": "Ero",
     },
-    Object {
+    {
       "head": "Additional match",
       "img": "/moe.imouto/4/9/f/49f8d06db9296fd9a887964e64aa990b.jpg",
       "similarity": 0.61,
-      "size": Object {
+      "size": {
         "height": 4096,
         "width": 2673,
       },
-      "source": Array [
+      "source": [
         "yande.re",
       ],
       "sourceUrl": "https://yande.re/post/show/1001188",
@@ -117,7 +117,7 @@ Object {
     },
   ],
   "ok": true,
-  "service": Array [
+  "service": [
     1,
     2,
     3,

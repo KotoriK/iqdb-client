@@ -1,6 +1,6 @@
 {
   "name": "iqdb-client",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "iqdb.org api client for Node.js.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -10,7 +10,7 @@
   },
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest ./test/parser.test.ts ./test/util.test.ts ./test/option.test.ts",
+    "test": "jest ./test/parser.test.ts ./test/util.test.ts",
     "build": "microbundle --target node -f modern,esm,cjs",
     "realtest": "jest ./test/api.test.ts",
     "doctoc": "doctoc README.md README.cn.md",

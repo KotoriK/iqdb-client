@@ -1,3 +1,8 @@
+# [3.0.0](https://github.com/KotoriK/iqdb-client/compare/2.0.1...3.0.0) (2024-05-27)
+
+* **BREAK CHANGE**: now requires Node v18
+* migrate to native fetch ([175482b](https://github.com/KotoriK/iqdb-client/commit/175482b76eed5905479ca888c4063799855ec50c))
+
 ## [2.0.1](https://github.com/KotoriK/iqdb-client/compare/2.0.0...2.0.1) (2024-05-27)
 
 

@@ -1,5 +1,5 @@
 # iqdb-client
-[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/workflow/status/KotoriK/iqdb-client/Test)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/iqdb-client/badge)](https://www.jsdelivr.com/package/npm/iqdb-client) [![npm](https://img.shields.io/npm/dm/iqdb-client?color=red&label=npm%20download)](https://www.npmjs.com/package/iqdb-client) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/iqdb-client) [![workflow](https://img.shields.io/github/actions/workflow/status/KotoriK/iqdb-client/test.yml?branch=master)](https://github.com/KotoriK/iqdb-client/actions/workflows/test.yml)[![dependents](https://badgen.net/npm/dependents/iqdb-client)](https://www.npmjs.com/package/iqdb-client?activeTab=dependents)
 
 iqdb.org api client for Node.js.
 
@@ -30,6 +30,8 @@ iqdb.org api client for Node.js.
 * 支持上传文件搜索(通过Buffer或Stream)和根据图片地址搜索
 * 基于Fetch
 ## 破坏性更改
+自```3.0.0```，由于请求客户端更换到了原生```fetch```，最低Node版本要求提升至```v18```。
+
 自```2.0.0```，对```similarity```一词的误拼已被修复，你若修改了```IQDBClientConfig```中对应的字段，那你可能需要做出更改。如果你使用的是默认的```IQDBClientConfig```，那这一更改对你不会有什么影响。
 ```IQDBSearchResultItem```中```similarity```字段的类型由```number | string```变为```number | null```，意味着解析失败时不再返回文本。
 ## 安装
@@ -164,4 +166,4 @@ export const defaultConfig: IQDBClientConfig = {
 * 遇到问题时，提交issue或PR
 
 ## 许可协议
-本仓库的代码在MIT许可下授权。 更多信息请查看 [LICENSE](./LICENSE)。
+本仓库的代码在```MIT```许可下授权。 更多信息请查看 [LICENSE](./LICENSE)。
