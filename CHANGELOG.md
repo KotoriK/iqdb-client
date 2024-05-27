@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/KotoriK/iqdb-client/compare/2.0.0...2.0.1) (2024-05-27)
+
+
+### Performance Improvements
+
+* use string ([5ce0f7d](https://github.com/KotoriK/iqdb-client/commit/5ce0f7d2bc9489e0a532ce41d36648f6dcd47e43))
+
+
+
 # [2.0.0](https://github.com/KotoriK/iqdb-client/compare/1.1.0...2.0.0) (2022-07-25)
 * **BREAK CHANGE**: simlarityPass -> similarityPass
 * fix similarity parse; use snapshots for tests ([f59bd34](https://github.com/KotoriK/iqdb-client/commit/f59bd3481302431b301585729455c52bb5aa6994))
